@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "react-router-dom": "^6.11.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "yarn build && npx thirdweb@latest upload dist"
+  }
+}
