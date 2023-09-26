@@ -11,7 +11,7 @@
     @apply  h-full  scrollbar-thumb-slate-600 scrollbar-track-slate-800 scrollbar-thin
   }
 
-  /* body {
-    @apply bg-slate-500
-  } */
+  body {
+    @apply bg-black
+  }
 }

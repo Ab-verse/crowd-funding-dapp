@@ -1,18 +1,9 @@
-"use client"
+import React from 'react'
 
-import React from "react";
-
-const Home = () => {
+const page = () => {
   return (
-    <>
-      <style jsx global>{`
-        body {
-          background: ${"blue"};
-        }
-      `}</style>
-      <div>Home</div>
-    </>
-  );
-};
+    <div className='text-white'>page</div>
+  )
+}
 
-export default Home;
+export default page

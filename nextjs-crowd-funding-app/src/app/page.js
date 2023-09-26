@@ -1,17 +1,32 @@
 "use client";
-import React, { useEffect } from "react";
-import Link from "next/link";
-import { ConnectButton } from '@rainbow-me/rainbowkit';
+// Import Statements
+import  { useEffect } from "react";
+import HomeContent from "./components/HomeContent";
+import CreateCampaign from "./components/CreateCampaign";
+// require("dotenv").config();
 
 
-// Rainbow kit integration
+
+// RainbowKit and Wagmi Integration
 import "@rainbow-me/rainbowkit/styles.css";
-import { getDefaultWallets, RainbowKitProvider } from "@rainbow-me/rainbowkit";
-import { configureChains, createConfig, WagmiConfig } from "wagmi";
+import {
+  getDefaultWallets,
+  RainbowKitProvider,
+} from "@rainbow-me/rainbowkit";
+import {
+  configureChains,
+  createConfig, 
+  WagmiConfig,
+} from "wagmi";
 import { sepolia } from "wagmi/chains";
+import { alchemyProvider } from 'wagmi/providers/alchemy';
 import { publicProvider } from "wagmi/providers/public";
 
-const { chains, publicClient } = configureChains([sepolia], [publicProvider()]);
+// Configure Chains and Wallets
+const { chains, publicClient } = configureChains([sepolia], [
+  alchemyProvider({ apiKey: "yhN7F2vQ9rUhr6ATQzuqrZrKO1xY_ejz" }),
+  publicProvider(),
+]);
 const { connectors } = getDefaultWallets({
   appName: "Crowd Funding DApp",
   projectId: "62b52aa7b3d958a83fb25e85e8d98df1",
@@ -23,37 +38,18 @@ const wagmiConfig = createConfig({
   publicClient,
 });
 
-function page() {
-  // useEffect(() => {
-  //   // Use JavaScript to set the background color for the body
-  //   document.body.classList.add("bg-blue-950"); // Replace with the Tailwind CSS class for your desired background color
-  // }, []);
+// Main Page Component
+function Page() {
+  // Wrap the useAccount hook with WagmiConfig
   return (
     <WagmiConfig config={wagmiConfig}>
       <RainbowKitProvider coolMode modalSize="compact" chains={chains}>
-        <div className="text-white m-12 ">
-          {/* <style jsx global>{`
-        body {
-          background: ${"red"};
-        }
-      `}</style> */}
-
-          <style jsx global>{`
-            body {
-              background: #000000;
-            }
-          `}</style>
-          <nav className="flex justify-between items-center">
-            <div className="pl-20">Search Campaigns</div>
-            <div>
-            <ConnectButton label="Connect Wallet"/>
-            </div>
-          </nav>
-          <main className="p-20">Your Campaigns</main>
-        </div>
+        <HomeContent />
+        <CreateCampaign />
       </RainbowKitProvider>
     </WagmiConfig>
   );
 }
 
-export default page;
+
+export default Page;
